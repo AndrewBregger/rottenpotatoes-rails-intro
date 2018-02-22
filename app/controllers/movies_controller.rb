@@ -12,6 +12,11 @@ class MoviesController < ApplicationController
 
   def index
     @movies = Movie.all
+    if :id == "release_date_header"
+      @movies = @movies.sort {|a, b| a.release_date < b.release_date }
+    else if :id == "title_header"
+      @movies = @movies.sort {|a, b| a.title < b.title }
+    end
   end
 
   def new
