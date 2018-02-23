@@ -13,9 +13,9 @@ class MoviesController < ApplicationController
   def index
     id = params[:id]
     if id == "title_header"
-      @movies = Movie.order(:title)
+      @movies = Movie.order("title ASC")
     else if id == "release_date_header"
-      @movies = Movie.order(:release_date)
+      @movies = Movie.order("release_date ASC")
     else
       @movies = Movie.all
     end
