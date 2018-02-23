@@ -11,12 +11,15 @@ class MoviesController < ApplicationController
   end
 
   def index
-    @movies = Movie.all
-    # if :id == "release_date_header"
-    #   @movies = @movies.sort {|a, b| a.release_date < b.release_date }
-    # else if :id == "title_header"
-    #   @movies = @movies.sort {|a, b| a.title < b.title }
-    # end
+    id = params[:id]
+    if id == "title_header"
+      @movies = Movie.order(:title)
+    else if id == "release_date_header"
+      @movies = Movie.order(:release_date)
+    else
+      @movies = Movie.all
+    end
+      
   end
 
   def new
