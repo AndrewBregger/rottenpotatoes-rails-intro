@@ -19,7 +19,6 @@ class MoviesController < ApplicationController
     end
     
     @movies = Movie.all
-    id = params[:id]
     sorts = params[:sort]
     
     if sorts
