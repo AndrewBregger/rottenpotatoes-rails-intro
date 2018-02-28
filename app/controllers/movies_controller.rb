@@ -61,4 +61,5 @@ class MoviesController < ApplicationController
     else
       @all_ratings
     end
+  end
 end
