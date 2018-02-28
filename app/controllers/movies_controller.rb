@@ -22,7 +22,7 @@ class MoviesController < ApplicationController
     sorts = params[:sort]
     
     if sorts
-      @movies = Movie.order(sorts)
+      @movies = @movies.order(sorts)
     end
   end
 
