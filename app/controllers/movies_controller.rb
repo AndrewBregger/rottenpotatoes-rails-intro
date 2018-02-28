@@ -16,7 +16,7 @@ class MoviesController < ApplicationController
     sorts = params[:sort]
     
     if sorts != ""
-      @movies = Movie.order(sorts)
+      @movies = Movie.order('#{sorts} asc')
     end
   end
 
