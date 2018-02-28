@@ -13,12 +13,16 @@ class MoviesController < ApplicationController
   def index
     # this will be changed later
     @all_ratings = ['G', 'PG', 'PG-13', 'R']
+    @checked_ratings = check
+    @checked_ratings.each do |rating|
+      params[rating] = true
+    end
     
     @movies = Movie.all
     id = params[:id]
     sorts = params[:sort]
     
-    if sorts != ""
+    if sorts
       @movies = Movie.order(sorts)
     end
   end
