@@ -13,11 +13,8 @@ class MoviesController < ApplicationController
   def index
     # this will be changed later
     @all_ratings = Movie.order(:rating).pluck(:rating).uniq
-    @checked_ratings = check
-    @checked_ratings.each do |rating|
-      params[rating] = true
-    end
-    
+    # @checked_ratings = check
+  
     @movies = Movie.all
     sorts = params[:sort]
     
