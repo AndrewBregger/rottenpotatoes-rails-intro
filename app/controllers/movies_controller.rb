@@ -22,7 +22,7 @@ class MoviesController < ApplicationController
     end
     
     if rates
-      rates.each do |rating| 
+      rates.keys.each do |rating| 
         @marked[rating] = true
       end
       
