@@ -15,7 +15,11 @@ class MoviesController < ApplicationController
     @all_ratings = Movie.ratings
     rates = params[:ratings]
     # maybe this will save the last instance
-    @marked = @all_ratings if @marked.nil?
+    @marked = {}
+    
+    @all_ratings.each do |rating|
+      @marked[rating] = false
+    end
     
     rates.each do |rating| 
       @marked[rating] = true
