@@ -12,17 +12,10 @@ class MoviesController < ApplicationController
 
   def index
     # this will be changed later
-    @all_ratings = Movie.order(:rating).pluck(:rating).uniq
-    @marked = []
-    @all_ratings.each do |rating|
-      if params[:"#{ratings}"]
-        @marked[ratings] = true
-      else
-        @marked[ratings] = false
-      end
-    end
-  
-    @movies = Movie.all
+    @all_ratings = Movie.ratings
+    
+    @movies = Movie.where(:rating => params[:ratings].keys)
+    
     sorts = params[:sort]
     
     if sorts
