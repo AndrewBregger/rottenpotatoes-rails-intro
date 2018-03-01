@@ -11,29 +11,23 @@ class MoviesController < ApplicationController
   end
 
   def index
-    # # Personally, I didnt like the commit=Refresh in the url so this
-    # # will remove it by redirecting to a page with the same data.
-    # if params[:commit] == "Refresh"
-    #   redirect_to movies_path(:sort => params[:sort], :ratings => params[:ratings])
-    #   return
-    # end
-    
     @all_ratings = Movie.ratings
+    @title_class = nil
+    @release_class = nil
     
-    if session[:sort] != params[:sort] and !params[:ratings].nil?
+    if params[:sort]
       session[:sort] = params[:sort]
     end
     
-    if !params[:ratings].nil? and session[:ratings] != params[:ratings]
-      if !params[:ratings].empty?
-        session[:ratings] = params[:ratings]
-      end
+    if params[:ratings]
+      session[:ratings] = params[:ratings]
     end
-
-    if params[:sort].nil? and params[:ratings].nil? and (!session[:sort].nil? or !session[:ratings].nil?)
+    
+    if (params[:sort].nil? and !session[:sort].nil?) or
+       (params[:ratings].nil? and !session[:ratings].nil?)
+       
       flash.keep
       redirect_to movies_path(:sort => session[:sort], :ratings => session[:ratings])
-      # return
     end
     
     if session[:ratings].nil?
@@ -42,12 +36,46 @@ class MoviesController < ApplicationController
       @selected_ratings = session[:ratings].keys
     end
     
-    sort = session[:sort]
-    if sort.nil?
-      @movies = Movie.where(:rating => @selected_ratings)
-    else
-      @movies = Movie.where(:rating => @selected_ratings).order("#{sort} asc")
+    if session[:sort] == "title"
+      @title_class = "hilite"
+    elsif session[:sort] == "release_date"
+      @release_class = "hilite"
     end
+    
+    if !session[:ratings].nil?
+      @movies = Movie.order(session[:sort]).where(:rating => session[:ratings].keys)
+    else
+      @movies = Movie.order(session[:sort])
+    end
+        
+    # if session[:sort] != params[:sort] and !params[:ratings].nil?
+    #   session[:sort] = params[:sort]
+    # end
+    
+    # if !params[:ratings].nil? and session[:ratings] != params[:ratings]
+    #   if !params[:ratings].empty?
+    #     session[:ratings] = params[:ratings]
+    #   end
+    # end
+
+    # if params[:sort].nil? and params[:ratings].nil? and (!session[:sort].nil? or !session[:ratings].nil?)
+    #   flash.keep
+    #   redirect_to movies_path(:sort => session[:sort], :ratings => session[:ratings])
+    #   # return
+    # end
+    
+    # if session[:ratings].nil?
+    #   @selected_ratings = @all_ratings
+    # else
+    #   @selected_ratings = session[:ratings].keys
+    # end
+    
+    # sort = session[:sort]
+    # if sort.nil?
+    #   @movies = Movie.where(:rating => @selected_ratings)
+    # else
+    #   @movies = Movie.where(:rating => @selected_ratings).order("#{sort} asc")
+    # end
   end
 
   def new
