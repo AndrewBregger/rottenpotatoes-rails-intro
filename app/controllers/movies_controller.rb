@@ -18,9 +18,9 @@ class MoviesController < ApplicationController
     @movies = Movie.all
     # sorts = params[:sort]
     
-    # if sorts
-    #   @movies = @movies.order(sorts)
-    # end
+    if sorts
+      @movies = @movies.order(sorts)
+    end
   end
 
   def new
