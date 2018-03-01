@@ -13,6 +13,7 @@ class MoviesController < ApplicationController
   def index
     # this will be changed later
     @all_ratings = Movie.ratings
+    @movies = Movie.all
     rates = params[:ratings]
     # maybe this will save the last instance
     @marked = {}
@@ -26,9 +27,9 @@ class MoviesController < ApplicationController
         @marked[rating] = true
       end
       
-      @movies = Movie.where(:rating => rates.keys)
+      @movies = @movie.where(:rating => rates.keys)
     else
-      @movies = Movie.where(:rating => {})
+      @movies = @movie.where(:rating => {})
     end
     
     sorts = params[:sort]
