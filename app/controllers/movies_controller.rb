@@ -21,11 +21,11 @@ class MoviesController < ApplicationController
       @marked[rating] = false
     end
     
-    rates.each do |rating| 
-      @marked[rating] = true
-    end
-    
     if rates
+      rates.each do |rating| 
+        @marked[rating] = true
+      end
+      
       @movies = Movie.where(:rating => rates.keys)
     else
       @movies = Movie.where(:rating => {})
