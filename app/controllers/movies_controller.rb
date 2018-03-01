@@ -13,7 +13,14 @@ class MoviesController < ApplicationController
   def index
     # this will be changed later
     @all_ratings = Movie.order(:rating).pluck(:rating).uniq
-    @checked_ratings = check
+    @marked = []
+    @all_ratings.each do |rating|
+      if params[:"#{ratings}"]
+        @marked[ratings] = true
+      else
+        @marked[ratings] = false
+      end
+    end
   
     @movies = Movie.all
     sorts = params[:sort]
@@ -49,13 +56,5 @@ class MoviesController < ApplicationController
     @movie.destroy
     flash[:notice] = "Movie '#{@movie.title}' deleted."
     redirect_to movies_path
-  end
-  
-  def check
-    if params[:ratings]
-      params[:ratings].keys
-    else
-      @all_ratings
-    end
   end
 end
