@@ -14,6 +14,9 @@ class MoviesController < ApplicationController
     # this will be changed later
     @all_ratings = Movie.ratings
     rates = params[:ratings]
+    # maybe this will save the last instance
+    @marked = rates
+    
     if rates
       @movies = Movie.where(:rating => rates.keys)
     else
