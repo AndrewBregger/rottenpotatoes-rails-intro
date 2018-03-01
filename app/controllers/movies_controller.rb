@@ -11,31 +11,18 @@ class MoviesController < ApplicationController
   end
 
   def index
-    # this will be changed later
     @all_ratings = Movie.ratings
-    @movies = Movie.all
-    rates = params[:ratings]
-    # maybe this will save the last instance
-    @marked = {}
     
-    @all_ratings.each do |rating|
-      @marked[rating] = false
-    end
-    
-    if rates
-      rates.keys.each do |rating| 
-        @marked[rating] = true
-      end
-      
-      @movies = @movie.pluck(:rating => rates.keys)
+    if params[:ratings].nil?
+      @selected_ratings = @all_ratings
     else
-      @movies = @movie.pluck(:rating => {})
+      @selected_ratings = params[:ratings].keys
     end
     
-    sorts = params[:sort]
-    
-    if sorts
-      @movies = @movies.order(sorts)
+    if params[:sort].nil?
+      @movies = Movie.where(:rating => @selected_ratings)
+    else
+      @movies = Movie.where(:rating => @selected_ratings).order("#{params[:sort]} asc")
     end
   end
 
