@@ -27,9 +27,9 @@ class MoviesController < ApplicationController
         @marked[rating] = true
       end
       
-      @movies = @movie.where(:rating => rates.keys)
+      @movies = @movie.pluck(:rating => rates.keys)
     else
-      @movies = @movie.where(:rating => {})
+      @movies = @movie.pluck(:rating => {})
     end
     
     sorts = params[:sort]
