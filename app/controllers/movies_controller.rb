@@ -14,7 +14,7 @@ class MoviesController < ApplicationController
     # this will be changed later
     @all_ratings = Movie.ratings
     
-    @movies = Movie.where(:rating => params[:ratings].keys)
+    @movies = Movie.where(:rating => params[:rating].keys)
     
     sorts = params[:sort]
     
