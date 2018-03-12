@@ -47,35 +47,6 @@ class MoviesController < ApplicationController
     else
       @movies = Movie.order(session[:sort])
     end
-        
-    # if session[:sort] != params[:sort] and !params[:ratings].nil?
-    #   session[:sort] = params[:sort]
-    # end
-    
-    # if !params[:ratings].nil? and session[:ratings] != params[:ratings]
-    #   if !params[:ratings].empty?
-    #     session[:ratings] = params[:ratings]
-    #   end
-    # end
-
-    # if params[:sort].nil? and params[:ratings].nil? and (!session[:sort].nil? or !session[:ratings].nil?)
-    #   flash.keep
-    #   redirect_to movies_path(:sort => session[:sort], :ratings => session[:ratings])
-    #   # return
-    # end
-    
-    # if session[:ratings].nil?
-    #   @selected_ratings = @all_ratings
-    # else
-    #   @selected_ratings = session[:ratings].keys
-    # end
-    
-    # sort = session[:sort]
-    # if sort.nil?
-    #   @movies = Movie.where(:rating => @selected_ratings)
-    # else
-    #   @movies = Movie.where(:rating => @selected_ratings).order("#{sort} asc")
-    # end
   end
 
   def new
